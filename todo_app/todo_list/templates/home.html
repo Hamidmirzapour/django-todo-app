@@ -5,6 +5,12 @@
 {% endblock title %}
 
 {% block content %}
-    <h1>Home Page</h1>
+    {% if all_items %}
+        <ul>
+        {% for thing in all_items %}
+            <li>{{ thing.item }} | {{ thing.completed }}</li>
+        {% endfor %}
+        </ul>
+    {% endif %}
 {% endblock content %}
 
