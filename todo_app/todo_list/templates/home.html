@@ -17,25 +17,37 @@
             {% endfor %}
         {% endif %}
         {% if all_items %}
-            <table class="table table-bordered">
-            {% for thing in all_items %}
-                {% if thing.completed %}
-                    <tr class="table-secondary">
-                        <td class="striker">{{ thing.item }}</td>
-                        <td class="text-center"><a class="btn btn-primary" href="{% url 'uncross' thing.id %}">Uncross</a></td>
-                        <td class="text-center"><a class="btn btn-warning" href="{% url 'edit' thing.id %}">Edit</a></td>
-                        <td class="text-center"><a class="btn btn-danger" href="{% url 'delete' thing.id %}">Delete</a></td>
+        <div class="table-responsive">
+            <table class="table table-sm table-bordered">
+                <thead>
+                    <tr>
+                    <th class="text-center" scope="col">Item</th>
+                    <th class="text-center" scope="col">Action</th>
+                    <th class="text-center" scope="col">Edit</th>
+                    <th class="text-center" scope="col">Delete</th>
                     </tr>
-                {% else %}
-                <tr>
-                        <td>{{ thing.item }}</td>
-                        <td class="text-center"><a class="btn btn-primary" href="{% url 'cross_off' thing.id %}">Cross off</a></td>
-                        <td class="text-center"><a class="btn btn-warning" href="{% url 'edit' thing.id %}">Edit</a></td>
-                        <td class="text-center"><a class="btn btn-danger" href="{% url 'delete' thing.id %}">Delete</a></td>
-                    </tr>
-                {% endif %}
-            {% endfor %}
-            </ul>
+                </thead>
+                <tbody>
+                {% for thing in all_items %}
+                    {% if thing.completed %}
+                        <tr class="table-secondary">
+                            <td class="striker text-center">{{ thing.item }}</td>
+                            <td class="text-center"><a class="btn btn-primary" href="{% url 'uncross' thing.id %}">Uncross</a></td>
+                            <td class="text-center"><a class="btn btn-warning" href="{% url 'edit' thing.id %}">Edit</a></td>
+                            <td class="text-center"><a class="btn btn-danger" href="{% url 'delete' thing.id %}">Delete</a></td>
+                        </tr>
+                    {% else %}
+                    <tr>
+                            <td class="text-center">{{ thing.item }}</td>
+                            <td class="text-center"><a class="btn btn-primary" href="{% url 'cross_off' thing.id %}">Cross off</a></td>
+                            <td class="text-center"><a class="btn btn-warning" href="{% url 'edit' thing.id %}">Edit</a></td>
+                            <td class="text-center"><a class="btn btn-danger" href="{% url 'delete' thing.id %}">Delete</a></td>
+                        </tr>
+                    {% endif %}
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
         {% endif %}
     </div>
 {% endblock content %}
