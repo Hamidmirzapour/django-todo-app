@@ -5,12 +5,38 @@
 {% endblock title %}
 
 {% block content %}
-    {% if all_items %}
-        <ul>
-        {% for thing in all_items %}
-            <li>{{ thing.item }} | {{ thing.completed }}</li>
-        {% endfor %}
-        </ul>
-    {% endif %}
+    <div class="content">
+        {% if messages %}
+            {% for message in messages %}
+                <div class="alert alert-success alert-dismissible fade show" role="alert">
+                    <strong>Congrats!</strong> {{ message }}
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+            {% endfor %}
+        {% endif %}
+        {% if all_items %}
+            <table class="table table-bordered">
+            {% for thing in all_items %}
+                {% if thing.completed %}
+                    <tr class="table-secondary">
+                        <td class="striker">{{ thing.item }}</td>
+                        <td class="text-center"><a class="btn btn-primary" href="{% url 'uncross' thing.id %}">Uncross</a></td>
+                        <td class="text-center"><a class="btn btn-warning" href="{% url 'edit' thing.id %}">Edit</a></td>
+                        <td class="text-center"><a class="btn btn-danger" href="{% url 'delete' thing.id %}">Delete</a></td>
+                    </tr>
+                {% else %}
+                <tr>
+                        <td>{{ thing.item }}</td>
+                        <td class="text-center"><a class="btn btn-primary" href="{% url 'cross_off' thing.id %}">Cross off</a></td>
+                        <td class="text-center"><a class="btn btn-warning" href="{% url 'edit' thing.id %}">Edit</a></td>
+                        <td class="text-center"><a class="btn btn-danger" href="{% url 'delete' thing.id %}">Delete</a></td>
+                    </tr>
+                {% endif %}
+            {% endfor %}
+            </ul>
+        {% endif %}
+    </div>
 {% endblock content %}
 
